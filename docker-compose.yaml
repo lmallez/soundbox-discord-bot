@@ -1,0 +1,10 @@
+version: "3.4"
+
+services:
+  soundbox:
+    build:
+      context: .
+    env_file: .env
+    volumes:
+      - ./main.py:/home/soundbox/main.py
+      - ./sounds:/home/soundbox/sounds/
