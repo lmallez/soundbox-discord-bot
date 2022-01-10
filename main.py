@@ -18,7 +18,7 @@ client = commands.Bot(command_prefix=BOT_COMMAND_PREFIX, description=BOT_DESCRIP
 
 @client.event
 async def on_ready():
-	print("Logged in as %s (#%s)" % (client.user.name, client.user.id))
+	print("Logged in as {} (#{})".format(client.user.name, client.user.id))
 
 
 def get_sounds():
