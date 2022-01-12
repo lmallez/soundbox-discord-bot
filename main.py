@@ -1,5 +1,5 @@
 import os
-from random import randint
+from random import randint, shuffle
 from time import sleep
 
 import discord
@@ -30,6 +30,12 @@ async def sound_dc(ctx):
     vc = get(ctx.bot.voice_clients, guild=ctx.guild)
     if vc:
         await vc.disconnect()
+
+
+@client.command(pass_context=True, no_pm=True)
+async def sound_reactions(ctx):
+    shuffle(BOT_REACTIONS)
+    await ctx.message.reply(" ".join(BOT_REACTIONS))
 
 
 @client.command(pass_context=True, no_pm=True)
@@ -74,10 +80,10 @@ async def sound(ctx):
     vc = get(ctx.bot.voice_clients, guild=ctx.guild)
     if not vc:
         vc = await channel.connect()
-    await ctx.message.add_reaction(
-        str(BOT_REACTIONS[randint(0, len(BOT_REACTIONS) - 1)])
-    )
     for audio in audios:
+        await ctx.message.add_reaction(
+            str(BOT_REACTIONS[randint(0, len(BOT_REACTIONS) - 1)])
+        )
         vc.play(discord.FFmpegPCMAudio("sounds/{}".format(audio)))
         while vc.is_playing():
             sleep(0.1)
